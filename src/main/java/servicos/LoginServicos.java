@@ -1,11 +1,18 @@
 package servicos;
 
+import dao.UsuarioDao;
+import modelo.Usuario;
+
 public class LoginServicos {
-	public boolean verificarUsuario(String usuario, String senha) {
-		if(usuario.equals("Admin") && senha.equals("danizin")) {
+	public boolean verificarUsuario(Usuario usuario) {
+		UsuarioDao dao = new UsuarioDao();
+		
+		Usuario u = dao.validarLogin(usuario);
+		
+		if(u.getNome() != null) {
 			return true;
 		} else {
-		return false;
+			return false;
 		}
 	}
 }

@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import modelo.Usuario;
 import servicos.LoginServicos;
 
 @WebServlet("/LoginServlet")
@@ -21,12 +23,14 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usuario = request.getParameter("username");
-		String senha = request.getParameter("password");
+		Usuario usuario = new Usuario();
+		
+		usuario.setUsuario(request.getParameter("username"));
+		usuario.setSenha(request.getParameter("password"));
 		
 		LoginServicos servico = new LoginServicos();
 		
-		if(servico.verificarUsuario(usuario, senha)){
+		if(servico.verificarUsuario(usuario)){
 			response.sendRedirect("home.jsp");
 		} else {
 			response.sendRedirect("login.jsp");
